@@ -12,7 +12,6 @@ public class Direccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_direccion;
-    @Column
     private String pais;
     private String ciudad;
 
