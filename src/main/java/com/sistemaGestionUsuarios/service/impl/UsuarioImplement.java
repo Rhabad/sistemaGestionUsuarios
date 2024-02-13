@@ -24,7 +24,7 @@ public class UsuarioImplement implements UsuarioService {
 
     @Override
     public Usuario save(Usuario usuario) {
-        return null;
+        return entityManager.merge(usuario);
     }
 
     @Override
