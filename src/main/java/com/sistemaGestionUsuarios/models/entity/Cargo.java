@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,6 +20,6 @@ public class Cargo {
     @NotNull
     private boolean activo;
 
-    @OneToMany(mappedBy = "id_cargo_fk", cascade = CascadeType.ALL)
-    private Set<Usuario> usuariosSet;
+    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
+    private List<Usuario> usuariosList;
 }

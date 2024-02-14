@@ -15,6 +15,6 @@ public class Direccion {
     private String pais;
     private String ciudad;
 
-    @OneToMany(mappedBy = "id_direccion_fk", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "direccion", cascade = CascadeType.ALL)
     private List<Usuario> listaUsuarios;
 }

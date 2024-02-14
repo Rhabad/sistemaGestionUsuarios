@@ -4,8 +4,8 @@ import com.sistemaGestionUsuarios.models.entity.Usuario;
 import com.sistemaGestionUsuarios.service.UsuarioService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,10 +15,9 @@ public class UsuarioImplement implements UsuarioService {
     @PersistenceContext
     private EntityManager entityManager;
 
-
     @Override
     public List<Usuario> findAll() {
-        String query = "from Usuario";
+        String query = "select u from Usuario u";
         return entityManager.createQuery(query).getResultList();
     }
 
