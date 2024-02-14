@@ -1,5 +1,6 @@
 package com.sistemaGestionUsuarios.controllers;
 
+import com.sistemaGestionUsuarios.models.dto.UsuarioDto;
 import com.sistemaGestionUsuarios.models.entity.Usuario;
 import com.sistemaGestionUsuarios.models.payload.MensajeResponse;
 import com.sistemaGestionUsuarios.service.UsuarioService;
@@ -22,7 +23,7 @@ public class UsuarioController {
 
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public ResponseEntity<?> showAllUser(){
-        List<Usuario> listaUsuarios = usuarioService.findAll();
+        List<UsuarioDto> listaUsuarios = usuarioService.findAll();
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Lista De Usuarios")
                 .object(listaUsuarios)

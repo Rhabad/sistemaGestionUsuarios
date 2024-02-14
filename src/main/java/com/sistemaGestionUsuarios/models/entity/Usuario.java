@@ -7,11 +7,14 @@ import com.sistemaGestionUsuarios.models.entity.Cargo;
 import com.sistemaGestionUsuarios.models.entity.Direccion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuario")
-@Data
+@Data 
 public class Usuario{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
