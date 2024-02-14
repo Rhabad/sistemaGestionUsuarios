@@ -36,7 +36,7 @@ public class Usuario{
     //@JsonIgnore
     // @JsonIgnoreProperties("usuario") // no sirve
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cargo_fk")
     private Cargo cargo;
 
