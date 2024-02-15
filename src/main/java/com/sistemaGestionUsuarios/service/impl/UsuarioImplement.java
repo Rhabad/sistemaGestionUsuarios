@@ -74,7 +74,10 @@ public class UsuarioImplement implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
+        Usuario usuario = entityManager.find(Usuario.class, id);
 
+        entityManager.remove(usuario);
     }
 }
