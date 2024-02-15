@@ -22,6 +22,15 @@ public class UsuarioController {
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public ResponseEntity<?> showAllUser(){
         List<UsuarioDto> listaUsuarios = usuarioService.findAll();
+
+        if (listaUsuarios.isEmpty()){
+            return new ResponseEntity<>(MensajeResponse.builder()
+                    .mensaje("Registro de Usuario, ¡¡Vacio!!")
+                    .object(null)
+                    .build()
+                    , HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Lista De Usuarios")
                 .object(listaUsuarios)
