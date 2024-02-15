@@ -23,19 +23,24 @@ public class UsuarioImplement implements UsuarioService {
 
     @Override
     public List<UsuarioDto> findAll() {
-        String query = "select distinct u from Usuario u join fetch u.direccion join fetch u.cargo";
+        String query = "select u from Usuario u";
         List<Usuario> usuarioList = entityManager.createQuery(query).getResultList();
 
         List<UsuarioDto> usuarioDtoList = new ArrayList<>();
         for (Usuario usu: usuarioList) {
+            String nombreCompleto = usu.getNombre() + " " + usu.getApellido();
+            String direccion = usu.getDireccion() != null ? usu.getDireccion().getPais() + ", " + usu.getDireccion().getCiudad() : "";
+            String cargo = usu.getCargo() != null ? usu.getCargo().getCargo() : "";
+
+
             usuarioDtoList.add(UsuarioDto.builder()
                             .id(usu.getId())
                             .email(usu.getEmail())
                             .password(usu.getPassword())
                             .telefono(usu.getTelefono())
-                            .nombre_completo(usu.getNombre()+" "+usu.getApellido())
-                            .direccion(usu.getDireccion().getPais()+", "+usu.getDireccion().getCiudad())
-                            .cargo(usu.getCargo().getCargo())
+                            .nombre_completo(nombreCompleto)
+                            .direccion(direccion)
+                            .cargo(cargo)
                     .build()
             );
         }
@@ -77,7 +82,33 @@ public class UsuarioImplement implements UsuarioService {
     @Transactional
     public void delete(Integer id) {
         Usuario usuario = entityManager.find(Usuario.class, id);
-
         entityManager.remove(usuario);
+    }
+
+    @Override
+    @Transactional
+    public boolean update(Integer id, UserWithRolDto user) {
+        Usuario usuario = entityManager.find(Usuario.class, id);
+
+        Cargo cargoExist = entityManager.find(Cargo.class, user.getCargo_id());
+        Direccion direcExist = entityManager.find(Direccion.class, user.getDireccion_id());
+
+        //actualizamos
+        if (usuario != null){
+            usuario.setEmail(user.getEmail());
+            usuario.setPassword(user.getPassword());
+            usuario.setTelefono(user.getTelefono());
+            usuario.setNombre(user.getNombre());
+            usuario.setApellido(user.getApellido());
+            usuario.setDireccion(direcExist);
+            usuario.setCargo(cargoExist);
+
+            entityManager.merge(usuario);
+            return true;
+        } else {
+            return false;
+        }
+
+
     }
 }

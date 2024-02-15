@@ -11,6 +11,7 @@ public interface UsuarioService {
     List<UsuarioDto> findAll();
     void save(UserWithRolDto user);
     void delete(Integer id);
+    boolean update(Integer id, UserWithRolDto user);
 
 
 }

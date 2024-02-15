@@ -57,15 +57,33 @@ public class UsuarioController {
                     .build()
                     , HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
-
     }
 
     @RequestMapping(value = "/usuario/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable Integer id){
         usuarioService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @RequestMapping(value = "/usuario/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody UserWithRolDto user){
+        boolean response = usuarioService.update(id, user);
+
+        if (response){
+            return new ResponseEntity<>(MensajeResponse.builder()
+                    .mensaje("Usuario Actualizado")
+                    .object(null)
+                    .build()
+                    , HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(MensajeResponse.builder()
+                    .mensaje("No se encontro Usuario")
+                    .object(null)
+                    .build()
+                    , HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
     }
 
 }
