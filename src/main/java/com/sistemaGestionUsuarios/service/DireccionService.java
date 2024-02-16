@@ -1,14 +1,14 @@
 package com.sistemaGestionUsuarios.service;
 
+import com.sistemaGestionUsuarios.models.dto.DireccionDto;
 import com.sistemaGestionUsuarios.models.dto.UserWithRolDto;
-import com.sistemaGestionUsuarios.models.dto.UsuarioDto;
 
 import java.util.List;
 
 public interface DireccionService {
 
-    List<UsuarioDto> findAll();
-    void save(UserWithRolDto user);
+    List<DireccionDto> findAll();
+    void save(DireccionDto direccionDto);
     void delete(Integer id);
-    boolean update(Integer id, UserWithRolDto user);
+    boolean update(Integer id, DireccionDto direccionDto);
 }
