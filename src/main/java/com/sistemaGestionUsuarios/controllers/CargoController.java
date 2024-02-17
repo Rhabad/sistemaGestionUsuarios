@@ -1,8 +1,9 @@
 package com.sistemaGestionUsuarios.controllers;
 
+import com.sistemaGestionUsuarios.models.dto.CargoDto;
 import com.sistemaGestionUsuarios.models.dto.DireccionDto;
 import com.sistemaGestionUsuarios.models.payload.MensajeResponse;
-import com.sistemaGestionUsuarios.service.DireccionService;
+import com.sistemaGestionUsuarios.service.CargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -13,16 +14,16 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1")
-public class DireccionController {
+public class CargoController {
 
     @Autowired
-    private DireccionService direccionService;
+    private CargoService cargoService;
 
-    @RequestMapping(value = "/direcciones", method = RequestMethod.GET)
+    @RequestMapping(value = "/cargos", method = RequestMethod.GET)
     public ResponseEntity<?> findAllDireccion(){
-        List<DireccionDto> listDto = direccionService.findAll();
+        List<CargoDto> listCargo = cargoService.findAll();
 
-        if (listDto.isEmpty()){
+        if (listCargo.isEmpty()){
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("No hay registro, esta vacio")
                     .object(null)
@@ -32,15 +33,15 @@ public class DireccionController {
 
         return new ResponseEntity<>(MensajeResponse.builder()
                 .mensaje("Lista de Direcciones")
-                .object(listDto)
+                .object(listCargo)
                 .build()
                 , HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/direccion", method = RequestMethod.POST)
-    public ResponseEntity<?> create(@RequestBody DireccionDto direccionDto){
+    @RequestMapping(value = "/cargo", method = RequestMethod.POST)
+    public ResponseEntity<?> create(@RequestBody CargoDto cargoDto){
         try {
-            direccionService.save(direccionDto);
+            cargoService.save(cargoDto);
             return new ResponseEntity<>(MensajeResponse.builder()
                     .mensaje("Usuario Creado Correctamente")
                     .object(null)
@@ -56,16 +57,15 @@ public class DireccionController {
         }
     }
 
-
-    @RequestMapping(value = "/direccion/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/cargo/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable Integer id){
-        direccionService.delete(id);
+        cargoService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/direccion/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody DireccionDto direccionDto){
-        boolean response = direccionService.update(id, direccionDto);
+    @RequestMapping(value = "/cargo/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody CargoDto cargoDto){
+        boolean response = cargoService.update(id, cargoDto);
 
         if (response){
             return new ResponseEntity<>(MensajeResponse.builder()
